@@ -1,74 +1,75 @@
-import {VStack, Image, Text, Box, FormControl, Input, Button, Link} from 'native-base'
+import {VStack, Image, Text, Box, FormControl, Input, Button, Link, Checkbox, ScrollView} from 'native-base'
 import {TouchableOpacity} from 'react-native'
 import Logo from './assets/Logo.png'
 import { blue } from 'react-native-reanimated/lib/typescript/reanimated2/Colors';
-import {} from './componentes/Bo'
 import { Titulo } from './componentes/titulo';
+import {EntradaTexto} from '../src/componentes/EntradaTexto'
+import { Botao } from './componentes/Botao'
+import { useState } from 'react';
+import {secoes} from './utils/CadastroEntradaTexto';
 
-export default function Titu() {
-  const secoes = {
-    {
-      id: 1,
-      titulo: 'insira alguns dados basicos'
-      entradaTexto: [
-        {
-          id: 1,
-          label: 'Nome'
-          placeholder: 'Digite seu nome completo'
-        }
-        {
-          id: 2,
-          label: 'email'
-          placeholder: 'Digite seu email'
-        }
-      ]
+export default function Cadastro() {
+  const [numSecao, setNumSecao] = useState (0);
+  
+  function avancarSecao() {
+    if (numSecao < secoes.length -1){
+      setNumSecao (numSecao+1)
+      
     }
+   
+  }
+  function voltarSecao () {
+    if (numSecao > 0)
+    setNumSecao (numSecao-1)
   }
 
   return (
-    <VStack flex={1} alignItems="center"  marginTop='10' 
-    justifyContent='center' p={5}>
-   <Image source={Logo} alt='Logo Voll' />
+    <ScrollView flex={1}  p={5}>
+   <Image source={Logo} alt='Logo Voll' 
+   alignSelf="center"
+   marginTop={10}
+   />
 
-    <Titulo>
-      Faça cadastro na sua conta
+   <Titulo>
+      {secoes[numSecao].titulo}
     </Titulo>
 
       <Box>
-      
-      {
-        secoes[0].entradaTexto.map(entrada =>
-          return <EntradaTexto/>
-        )
+    
+        {
+          secoes [numSecao]?.entradaTexto?.map(entrada=>{
+            return <EntradaTexto label={entrada.label}
+            placeholder = {entrada.placeholder} key={entrada.id} />
+          })
+        }
+
+      </Box>
+
+      <Box>
+      <Text
+      fontSize='16'
+      fontWeight='bold'
+      color='blue.800'
+       >
+          Selecione o plano
+      </Text>
+          {           
+         secoes [numSecao]?.checkbox?.map (checkbox =>
+            {
+            return <Checkbox key={checkbox.id}
+            value={checkbox.value}>
+              {checkbox.value}
+              </Checkbox>
+        })
       }
 
       </Box>
-    <Button
-      width="100%"
-      bg = 'blue.800'
-      mt='10'
-      borderRadius='lg'
-       >
-      Entrar
-    </Button>
 
-    <Link
-     href='http://google.com' mt={8}
-      >
-      esqueceu sua senha?
-    </Link>
+      {numSecao > 0 && <Botao onPress={() => voltarSecao()} bgColor="gray.400">Voltar</Botao>}
 
-    <Box width='100%' flexDirection='row' justifyContent='center' mt={8}>
-       <Text>
-        ainda não tem cadastro?
-       </Text>
-          <TouchableOpacity>
-             <Text color='blue.500' >
-      faça seu cadastro aqui
-            </Text>
-        </TouchableOpacity>
-      </Box>
-
-    </VStack>
+      <Botao onPress={() => avancarSecao()} mt={4} mb={20}>Avançar</Botao>
+        
+    
+    </ScrollView>
   );
 }

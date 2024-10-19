@@ -1,10 +1,12 @@
 import {VStack, Image, Text, Box, FormControl, Input, Button, Link} from 'native-base'
 import {TouchableOpacity} from 'react-native'
 import Logo from './assets/Logo.png'
-import { blue } from 'react-native-reanimated/lib/typescript/reanimated2/Colors';
 import { Titulo } from './componentes/titulo';
+import { EntradaTexto } from './componentes/EntradaTexto';
+import {Botao} from './componentes/Botao'
 
-export default function Login() {
+
+export default function Login({ navigation }) {
   return (
     <VStack flex={1} alignItems="center"  marginTop='10' 
     justifyContent='center' p={5}>
@@ -42,14 +44,9 @@ export default function Login() {
         </FormControl>
 
       </Box>
-    <Button
-      width="100%"
-      bg = 'blue.800'
-      mt='10'
-      borderRadius='lg'
-       >
+    <Botao onPress={()=> navigation.navigate('Tabs')} >
       Entrar
-    </Button>
+    </Botao>
 
     <Link
      href='http://google.com' mt={8}
@@ -57,12 +54,12 @@ export default function Login() {
       esqueceu sua senha?
     </Link>
 
-    <Box width='100%' flexDirection='row' justifyContent='center' mt={8}>
+    <Box width='100%' flexDirection='row' justifyContent='center' mt={8} >
        <Text>
         ainda não tem cadastro?
        </Text>
-          <TouchableOpacity>
-             <Text color='blue.500' >
+       <TouchableOpacity onPress={() => navigation.navigate('Cadastro')} >
+             <Text color='blue.500' mb={5}>
       faça seu cadastro aqui
             </Text>
         </TouchableOpacity>

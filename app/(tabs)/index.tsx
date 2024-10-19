@@ -1,16 +1,17 @@
-import { StyleSheet, Text, View } from 'react-native';
-import {NativeBaseProvider, StatusBar} from 'native-base'
+import { NativeBaseProvider, StatusBar } from 'native-base';
 
 import { TEMAS } from '@/src/estilos/temas';
-import Cadastro from '@/src/Cadastro';
- 
-export default function index() {
+
+import Login from '@/src/Login';
+import Rotas from '@/src/Rotas';
+import { NavigationContainer } from '@react-navigation/native';
+export default function App() {
   return (
+    <NavigationContainer independent={true}>
     <NativeBaseProvider theme={TEMAS}>
-      <StatusBar backgroundColor = {TEMAS.colors.blue[800]} />
-      <Cadastro/>
+      <StatusBar backgroundColor={TEMAS.colors.blue[800]} />
+      <Rotas />
     </NativeBaseProvider>
-    
+    </NavigationContainer>
   );
 }
-

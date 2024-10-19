@@ -1,20 +1,29 @@
-import {Text, ITextProps} from 'native-base'
-import { ReactNode } from 'react'
+import { Input, FormControl } from "native-base";
 
-interface TituloProps extends ITextProps {
-    children: ReactNode
+interface InputProps {
+  label?: string;
+  placeholder: string;
+  secureTextEntry?: boolean;
+  leftIcon?: React.ReactNode;
 }
 
-export function Titulo () {
-    return (  <Text
-        fontSize="2xl"
-        fontWeight="bold"
-        color="gray.500"
-        textAlign="center"
-        mt={5}
-        {...rest}
-      >
-        {children}
-      </Text>)
-  
-    }
+export function EntradaTexto ({ 
+  label, 
+  placeholder, 
+  secureTextEntry = false
+} : InputProps) : JSX.Element {
+  return (
+    <FormControl mt={3}>
+      {label && <FormControl.Label>{label}</FormControl.Label>}
+      <Input
+        placeholder={placeholder}
+        size="lg"
+        w="100%"
+        borderRadius="lg"
+        bgColor="gray.100"
+        secureTextEntry={secureTextEntry}
+        shadow={3}
+      />
+    </FormControl>
+  );
+};
